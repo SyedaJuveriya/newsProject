@@ -4,17 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <title>News Home</title>
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>✨ Select a News Category</h1>
-    <div class="container">
-        <ul class="category-list">
-            {% for cat in category %}
-            <li><a href="/news/{{cat}}">{{ cat|title }}</a></li>
-            {% endfor %}
-        </ul>
+    <header>
+        <h1>✨ Daily News Portal</h1>
+        <p>Choose a category to explore top headlines</p>
+    </header>
+
+    <div class="container category-grid">
+        {% for cat in category %}
+        <a href="/news/{{cat}}" class="category-card">
+            <h2>{{ cat|title }}</h2>
+            <p>Latest updates on {{ cat }}</p>
+        </a>
+        {% endfor %}
     </div>
 </body>
 </html>

@@ -4,33 +4,31 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ category|title }} News</title>
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>🗞️ Top Headlines in {{ category|title }}</h1>
+    <header>
+        <h1>🗞️ Top Headlines in {{ category|title }}</h1>
+        <a href="/" class="back-btn">⬅ Back to Home</a>
+    </header>
 
-    <div class="container">
+    <div class="container news-grid">
         {% if articles %}
-            <ul>
-                {% for article in articles %}
-                <li>
+            {% for article in articles %}
+            <div class="news-card">
+                {% if article.urlToImage %}
+                    <img src="{{ article.urlToImage }}" alt="News Image">
+                {% endif %}
+                <div class="news-content">
                     <h2>{{ article.title }}</h2>
-
-                    {% if article.urlToImage %}
-                        <img src="{{ article.urlToImage }}" alt="News Image">
-                    {% endif %}
-
-                    <p>{{ article.description }}</p>
-                    <a href="{{ article.url }}" target="_blank">Read More</a>
-                </li>
-                {% endfor %}
-            </ul>
+                    <p>{{ article.description|default:"No description available." }}</p>
+                    <a href="{{ article.url }}" target="_blank" class="read-more">Read More</a>
+                </div>
+            </div>
+            {% endfor %}
         {% else %}
             <p>No news found for {{ category }}</p>
         {% endif %}
-
-        <a href="/" style="margin-top: 40px;">⬅ Back to Home</a>
     </div>
 </body>
 </html>
